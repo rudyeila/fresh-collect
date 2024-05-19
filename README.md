@@ -8,7 +8,7 @@ Currently supported are recipes from HelloFresh (hence the name), but this could
 For the shopping list, [Bring!](https://www.getbring.com/en/home) is supported. This could also be extended in the future. 
 
 # Example
-A gif showcasing the tool will be added here
+![Example usage](./assets/usage.gif)
 
 # Setup
 At the root level of this repository, create a `.env` file. In it write your Bring! credentials in the following format:
