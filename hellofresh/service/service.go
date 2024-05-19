@@ -1,8 +1,10 @@
 package service
 
 import (
+	"errors"
 	"fmt"
 	"log/slog"
+	"strconv"
 
 	"github.com/rudyeila/go-bring-api/bring"
 	"github.com/rudyeila/hello-fresh-go-client/hellofresh/client"
@@ -15,6 +17,43 @@ type Service struct {
 	Log   *slog.Logger
 }
 
+func (s *Service) AddToShoppingList(listName string, ingredients []model.Ingredient) error {
+	lists, err := s.Bring.GetLists()
+	if err != nil {
+		return err
+	}
+
+	if lists == nil {
+		return errors.New("no lists found for Bring user")
+	}
+
+	listId := ""
+	for _, l := range lists.Lists {
+		if l.Name == listName {
+			listId = l.ListUuid
+			break
+		}
+	}
+
+	if listId == "" {
+		return fmt.Errorf("no list with name %s was found for user", listName)
+	}
+
+	for _, ingr := range ingredients {
+		sub := ""
+		if ingr.Amount != nil {
+			sub = fmt.Sprintf("%s %s", strconv.FormatFloat(*ingr.Amount, 'f', -1, 64), ingr.Unit)
+		}
+
+		err = s.Bring.AddItem(listId, ingr.Name, sub)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (s *Service) GetMergedIngredients(shippedOnly bool, recipeIDs ...string) ([]model.Ingredient, error) {
 	var result []model.Ingredient
 
@@ -23,7 +62,7 @@ func (s *Service) GetMergedIngredients(shippedOnly bool, recipeIDs ...string) ([
 		return result, err
 	}
 
-	return s.mergeIngredients(true, recipes), nil
+	return s.mergeIngredients(shippedOnly, recipes), nil
 }
 
 func (s *Service) GetMultipleRecipes(recipeIDs ...string) ([]*model.Recipe, error) {

@@ -22,8 +22,11 @@ func main() {
 	}
 
 	hf := client.NewClient(cfg.HelloFresh, log)
-
 	b := bring.New(cfg.Bring, log)
+	err = b.Login()
+	if err != nil {
+		log.Error("authentication user with Bring", "error", err)
+	}
 
 	svc := service.Service{Bring: b, HF: hf, Log: log}
 
@@ -32,9 +35,15 @@ func main() {
 	if err != nil {
 		log.Error("Getting ingredients", "error", err)
 	}
+
 	err = WriteStructToJSONFile(ingredients, "ingredients.json")
 	if err != nil {
 		log.Error("Writing ingredients to file", "error", err)
+	}
+
+	err = svc.AddToShoppingList("HelloFresh", ingredients)
+	if err != nil {
+		log.Error("Adding ingredients to Bring", "error", err)
 	}
 }
 
@@ -51,6 +60,23 @@ func WriteStructToJSONFile(v interface{}, filename string) error {
 	encoder.SetIndent("", "  ") // for pretty printing
 	if err := encoder.Encode(v); err != nil {
 		return fmt.Errorf("could not encode to JSON: %v", err)
+	}
+
+	return nil
+}
+
+func ReadJSONFromFile(filename string, v interface{}) error {
+	// Open the file for reading
+	file, err := os.Open(filename)
+	if err != nil {
+		return fmt.Errorf("could not open file: %v", err)
+	}
+	defer file.Close()
+
+	// Read the file's content
+	err = json.NewDecoder(file).Decode(&v)
+	if err != nil {
+		return fmt.Errorf("could not read file: %v", err)
 	}
 
 	return nil
