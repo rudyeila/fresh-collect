@@ -44,7 +44,8 @@ Run the command to parse and merge the ingredients and store the output in a fil
 `fresh-collect parse --output=ingredients.json -r 64df2a4d614f75555c20edba -r 58343e5dd4d92c5781367e02`
 
 This parses the ingredients across the recipes and combines the quantites of ingredients with the same, e.g. Potatoes, which are in both recipes.
-The result is written out as json to the specified file `ingredients.json`
+The result is written out as json to the specified file `ingredients.json`. Check the content of the file and remove any ingredients you may already have and not wish to add to shopping list.
+
 
 Run the `add` command to add all the ingredients into your Bring! shopping list:
 
