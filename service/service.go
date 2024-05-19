@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/rudyeila/fresh-collect/hellofresh/client"
-	"github.com/rudyeila/fresh-collect/hellofresh/service/model"
+	"github.com/rudyeila/fresh-collect/service/model"
 	"github.com/rudyeila/go-bring-api/bring"
 )
 

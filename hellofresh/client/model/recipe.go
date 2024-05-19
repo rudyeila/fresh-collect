@@ -3,7 +3,7 @@ package model
 import (
 	"time"
 
-	"github.com/rudyeila/fresh-collect/hellofresh/service/model"
+	"github.com/rudyeila/fresh-collect/service/model"
 )
 
 type Allergen struct {

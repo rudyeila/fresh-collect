@@ -8,8 +8,8 @@ import (
 
 	"github.com/rudyeila/fresh-collect/config"
 	"github.com/rudyeila/fresh-collect/hellofresh/client"
-	"github.com/rudyeila/fresh-collect/hellofresh/service"
-	"github.com/rudyeila/fresh-collect/hellofresh/service/model"
+	"github.com/rudyeila/fresh-collect/service"
+	"github.com/rudyeila/fresh-collect/service/model"
 	"github.com/rudyeila/go-bring-api/bring"
 	"github.com/urfave/cli/v2"
 )
