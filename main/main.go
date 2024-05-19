@@ -6,9 +6,10 @@ import (
 	"log/slog"
 	"os"
 
+	"github.com/rudyeila/go-bring-api/bring"
 	"github.com/rudyeila/hello-fresh-go-client/config"
-	"github.com/rudyeila/hello-fresh-go-client/hellofresh"
-	"github.com/rudyeila/hello-fresh-go-client/hellofresh/model"
+	"github.com/rudyeila/hello-fresh-go-client/hellofresh/client"
+	"github.com/rudyeila/hello-fresh-go-client/hellofresh/service"
 )
 
 func main() {
@@ -20,47 +21,20 @@ func main() {
 		log.Error("creating config", "error", err.Error())
 	}
 
-	hf := hellofresh.New(cfg, log)
-	recipe, err := hf.GetRecipe("65d324a4833ed7a0e818b1b5")
+	hf := client.NewClient(cfg.HelloFresh, log)
+
+	b := bring.New(cfg.Bring, log)
+
+	svc := service.Service{Bring: b, HF: hf, Log: log}
+
+	recIds := []string{"64df2a4d614f75555c20edba", "586250316121bb04b97342c2", "58343e5dd4d92c5781367e02"}
+	ingredients, err := svc.GetMergedIngredients(true, recIds...)
 	if err != nil {
-		log.Error("getting recipe", "id", "64df2a4d614f75555c20edba", "error", err.Error())
+		log.Error("Getting ingredients", "error", err)
 	}
-
-	shippedIngr := make([]model.Ingredient, 0)
-	for _, ing := range recipe.Ingredients {
-		if ing.Shipped {
-			fmt.Println(ing.Name)
-			shippedIngr = append(shippedIngr, ing)
-		}
-	}
-
-	var yieldForTwo model.Yield
-	for _, y := range recipe.Yields {
-		if y.Yields == 2 {
-			yieldForTwo = y
-			break
-		}
-	}
-
-	ingredientsWithAmount := make([]model.IngredientWithAmount, len(shippedIngr))
-	for i, ingr := range shippedIngr {
-		for _, yIngr := range yieldForTwo.Ingredients {
-			if ingr.Id == yIngr.Id {
-				ingredientsWithAmount[i] = model.IngredientWithAmount{
-					Id:     ingr.Id,
-					Uuid:   ingr.Uuid,
-					Name:   ingr.Name,
-					Amount: yIngr.Amount,
-					Unit:   yIngr.Unit,
-				}
-			}
-		}
-	}
-
-	err = WriteStructToJSONFile(ingredientsWithAmount, "ingredients.json")
+	err = WriteStructToJSONFile(ingredients, "ingredients.json")
 	if err != nil {
 		log.Error("Writing ingredients to file", "error", err)
-
 	}
 }
 

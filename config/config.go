@@ -2,21 +2,21 @@ package config
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
+	"github.com/rudyeila/go-bring-api/bring"
+	"github.com/rudyeila/hello-fresh-go-client/hellofresh"
 )
 
 type Config struct {
-	BaseURL        string        `envconfig:"HF_BASE_URL" default:"https://www.hellofresh.de/gw/api"`
-	AccessToken    string        `envconfig:"HF_ACCESS_TOKEN"`
-	DefaultTimeout time.Duration `default:"10s"`
+	HelloFresh hellofresh.Config
+	Bring      bring.Config
 }
 
 func New(filenames ...string) (Config, error) {
 	conf := Config{}
-	_ = godotenv.Load(filenames...) //nolint:errcheck // ignore error
+	_ = godotenv.Load(filenames...)
 
 	err := envconfig.Process("", &conf)
 	if err != nil {

@@ -1,6 +1,10 @@
 package model
 
-import "time"
+import (
+	"time"
+
+	"github.com/rudyeila/hello-fresh-go-client/hellofresh/service/model"
+)
 
 type Allergen struct {
 	Id               string  `json:"id"`
@@ -131,10 +135,29 @@ type GetRecipeResponse struct {
 	Yields              []Yield      `json:"yields"`
 }
 
-type IngredientWithAmount struct {
-	Id     string   `json:"id"`
-	Uuid   string   `json:"uuid"`
-	Name   string   `json:"name"`
-	Amount *float64 `json:"amount"`
-	Unit   string   `json:"unit"`
+func (res *GetRecipeResponse) ToService() *model.Recipe {
+	var yieldForTwo Yield
+	for _, y := range res.Yields {
+		if y.Yields == 2 {
+			yieldForTwo = y
+			break
+		}
+	}
+
+	ingredientsWithAmount := make([]model.Ingredient, len(res.Ingredients))
+	for i, ingr := range res.Ingredients {
+		for _, yIngr := range yieldForTwo.Ingredients {
+			if ingr.Id == yIngr.Id {
+				ingredientsWithAmount[i] = model.Ingredient{
+					Id:      ingr.Uuid,
+					Name:    ingr.Name,
+					Amount:  yIngr.Amount,
+					Unit:    yIngr.Unit,
+					Shipped: ingr.Shipped,
+				}
+			}
+		}
+	}
+
+	return &model.Recipe{ID: res.Uuid, Country: res.Country, Ingredients: ingredientsWithAmount}
 }

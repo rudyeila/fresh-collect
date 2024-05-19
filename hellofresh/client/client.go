@@ -1,4 +1,4 @@
-package hellofresh
+package client
 
 import (
 	"encoding/json"
@@ -6,18 +6,18 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/rudyeila/hello-fresh-go-client/config"
-	"github.com/rudyeila/hello-fresh-go-client/hellofresh/model"
+	"github.com/rudyeila/hello-fresh-go-client/hellofresh"
+	"github.com/rudyeila/hello-fresh-go-client/hellofresh/client/model"
 )
 
 type HelloFresh struct {
 	client  *http.Client
 	baseURL string
 	log     *slog.Logger
-	cfg     config.Config
+	cfg     hellofresh.Config
 }
 
-func New(cfg config.Config, logger *slog.Logger) *HelloFresh {
+func NewClient(cfg hellofresh.Config, logger *slog.Logger) *HelloFresh {
 	client := &http.Client{
 		Timeout: cfg.DefaultTimeout,
 	}

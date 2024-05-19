@@ -2,3 +2,5 @@ github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
 github.com/joho/godotenv v1.5.1/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
 github.com/kelseyhightower/envconfig v1.4.0 h1:Im6hONhd3pLkfDFsbRgu68RDNkGF1r3dvMUtDTo2cv8=
 github.com/kelseyhightower/envconfig v1.4.0/go.mod h1:cccZRl6mQpaq41TPp5QxidR+Sa3axMbJDNb//FQX6Gg=
+github.com/rudyeila/go-bring-api v0.1.0 h1:Rj3GMGOomChCm6pjV6W4UKzoAP6BuaxCnNoclQhUBrc=
+github.com/rudyeila/go-bring-api v0.1.0/go.mod h1:CN7NMM9h4khOv16xXqfb+U+wIqNgWosg2nMqi6g+zTE=
