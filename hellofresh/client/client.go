@@ -6,8 +6,8 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/rudyeila/hello-fresh-go-client/hellofresh"
-	"github.com/rudyeila/hello-fresh-go-client/hellofresh/client/model"
+	"github.com/rudyeila/fresh-collect/hellofresh"
+	"github.com/rudyeila/fresh-collect/hellofresh/client/model"
 )
 
 type HelloFresh struct {

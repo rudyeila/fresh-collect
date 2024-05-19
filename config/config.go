@@ -5,8 +5,8 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
+	"github.com/rudyeila/fresh-collect/hellofresh"
 	"github.com/rudyeila/go-bring-api/bring"
-	"github.com/rudyeila/hello-fresh-go-client/hellofresh"
 )
 
 type Config struct {

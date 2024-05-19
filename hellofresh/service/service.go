@@ -6,9 +6,9 @@ import (
 	"log/slog"
 	"strconv"
 
+	"github.com/rudyeila/fresh-collect/hellofresh/client"
+	"github.com/rudyeila/fresh-collect/hellofresh/service/model"
 	"github.com/rudyeila/go-bring-api/bring"
-	"github.com/rudyeila/hello-fresh-go-client/hellofresh/client"
-	"github.com/rudyeila/hello-fresh-go-client/hellofresh/service/model"
 )
 
 type Service struct {

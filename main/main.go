@@ -6,10 +6,10 @@ import (
 	"log/slog"
 	"os"
 
+	"github.com/rudyeila/fresh-collect/config"
+	"github.com/rudyeila/fresh-collect/hellofresh/client"
+	"github.com/rudyeila/fresh-collect/hellofresh/service"
 	"github.com/rudyeila/go-bring-api/bring"
-	"github.com/rudyeila/hello-fresh-go-client/config"
-	"github.com/rudyeila/hello-fresh-go-client/hellofresh/client"
-	"github.com/rudyeila/hello-fresh-go-client/hellofresh/service"
 )
 
 func main() {
