@@ -26,6 +26,7 @@ Make sure `$GOPATH/bin` is added to your path. To find where you `$GOPATH` is, u
 Pull this repository and CD into `./cli` 
 
 Run `go install`
+
 Ensure `ls $GOPATH/bin` now contains an exe called `fresh-collect`. 
 
 You should now be able to call the tool from the CMD using `fresh-collect`.
